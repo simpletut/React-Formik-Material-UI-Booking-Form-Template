@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from './Components/Header';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
@@ -13,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const INITIAL_FORM_STATE = {
+
+};
+
+const FORM_VALIDATION = Yup.object().shape({
+
+});
+
 const App = () => {
   const classes = useStyles();
 
@@ -25,7 +35,19 @@ const App = () => {
         <Container maxWidth="md">
           <div className={classes.formWrapper}>
 
+            <Formik
+              initialValues={{
+                ...INITIAL_FORM_STATE
+              }}
+              validationSchema={FORM_VALIDATION}
+              onSubmit={values => {
+                console.log(values);
+              }}
+            >
+              <Form>
 
+              </Form>
+            </Formik>
 
           </div>
         </Container>
