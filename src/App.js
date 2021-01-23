@@ -9,6 +9,11 @@ import {
   Typography
 } from '@material-ui/core';
 import Textfield from './Components/FormsUI/Textfield';
+import Select from './Components/FormsUI/Select';
+import DateTimePicker from './Components/FormsUI/DataTimePicker';
+import Checkbox from './Components/FormsUI/Checkbox';
+import Button from './Components/FormsUI/Button';
+import countries from './data/countries.json';
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -27,6 +32,10 @@ const INITIAL_FORM_STATE = {
   city: '',
   state: '',
   country: '',
+  arrivealDate: '',
+  departureDate: '',
+  message: '',
+  termsOfService: false
 };
 
 const FORM_VALIDATION = Yup.object().shape({
@@ -50,6 +59,14 @@ const FORM_VALIDATION = Yup.object().shape({
     .required('Required'),
   country: Yup.string()
     .required('Required'),
+  arrivealDate: Yup.date()
+    .required('Required'),
+  departureDate: Yup.date()
+    .required('Required'),
+  message: Yup.string(),
+  termsOfService: Yup.boolean()
+    .oneOf([true], 'The terms and conditions must be accepted.')
+    .required('The terms and conditions must be accepted.'),
 });
 
 const App = () => {
@@ -146,13 +163,54 @@ const App = () => {
                   </Grid>
 
                   <Grid item xs={12}>
-
+                    <Select
+                      name="country"
+                      label="Country"
+                      options={countries}
+                    />
                   </Grid>
 
                   <Grid item xs={12}>
                     <Typography>
                       Booking information
                     </Typography>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <DateTimePicker
+                      name="arrivealDate"
+                      label="Arrival Date"
+                    />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <DateTimePicker
+                      name="departureDate"
+                      label="Departure Date"
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Textfield
+                      name="message"
+                      label="Message"
+                      multiline={true}
+                      rows={4}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Checkbox
+                      name="termsOfService"
+                      legend="Terms Of Service"
+                      label="I agree"
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Button>
+                      Submit Form
+                    </Button>
                   </Grid>
 
 
